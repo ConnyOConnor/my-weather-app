@@ -9,9 +9,55 @@
     <title>My Weather App</title>
 </head>
 <body>
-  <div class="container"></div>
-    
+  <div class="container">
+    <div class="weather-app">
+      <form id="search-form" class="mb-3">
+        <div class="row">
+          <div class="col-9" autofocus>
+            <input type="search" placeholder="Please enter a city name" class="form-control" id="city-input" autocomplete="off">
+          </div>
+          <div class="col-3">
+            <button type="submit" value="Search" class="btn btn-primary submit-button">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
 
+      <h1 id="city">London</h1>
+      <h2>
+        <ul>
+          <li>
+            Last updated: <span id="current time"></span>Monday, 09:15
+          </li>
+          <li id="descripton">
+            cloudy
+          </li>
+        </ul>
+
+        <div class="row">
+          <div class="col-ms-6">
+            <div class="d-flex">
+              <img src="http://openweathermap.org/img/wn/04d@2x.png" alt="cloudy" class="float-left" id="icon">
+              <div class="float-left">
+               <strong id="current-temperature">8°C</strong>
+              </div>
+              <div class="col-ms-6">
+                <ul>
+                  <li>
+                    Humidity: <span id="humidity"> 50%</span>
+                  </li>
+                  <li>
+                    Wind speed: <span id="wind-speed"> 5 km/h</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+    <p>open source code by Cornelia Schlesinger</p>
   </div>
     <script src="src/app.js"></script>
 </body>
