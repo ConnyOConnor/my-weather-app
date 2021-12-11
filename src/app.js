@@ -1,11 +1,13 @@
 function displayCurrentConditions(response) {
-    let temperatureElement = document.querySelector("#celsius-temperature");
+    let temperatureCelsiusElement = document.querySelector("#celsius-temperature");
     let humidityElement = document.querySelector("#humidity");
     let windElement = document.querySelector("#wind-speed");
     let descriptionElement = document.querySelector("#description");
     let iconElement = document.querySelector("#icon");
 
-    temperatureElement.innerHTML = Math.round(response.data.main.temp);
+    celsiusTemperature = response.data.main.temp;
+
+    temperatureCelsiusElement.innerHTML = Math.round(response.data.main.temp);
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     windElement.innerHTML = Math.round(response.data.wind.speed);
     descriptionElement.innerHTML = response.data.weather[0].description;
@@ -25,6 +27,27 @@ function handleSubmit(event) {
     axios.get(apiUrl).then(displayCurrentConditions);
 }
 
+function displayFahrenheitTemperature(event) {
+    event.preventDefault();
+    let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+    let temperatureElement = document.querySelector("#celsius-temperature");
+    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+    
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active");
+}
+
+function displayCelsiusTemperature(event) {
+    event.preventDefault();
+    let temperatureElement = document.querySelector("#celsius-temperature");
+    temperatureElement.innerHTML = Math.round(celsiusTemperature);
+
+    celsiusLink.classList.add("active");
+    fahrenheitLink.classList.remove("active");
+}
+
+let celsiusTemperature = "null";
+
 let now = new Date();
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let day = days[now.getDay()];
@@ -39,9 +62,11 @@ let minutes = now.getMinutes();
 let currentDate = document.querySelector("#date");
 currentDate.innerHTML = `${day} ${hours}:${minutes}`;
 
-
-let celsiusTemperature = "null";
-
 let form = document.querySelector("form");
 form.addEventListener("click", handleSubmit);
 
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
