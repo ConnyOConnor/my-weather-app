@@ -1,8 +1,24 @@
+function formatDate(response) {
+    let date = new Date();
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let day = days[date.getDay()];
+    let hours = date.getHours();
+        if (hours < 10) {
+        hours = `0${hours}`;
+    }
+    let minutes = date.getMinutes();
+        if (minutes < 10) {
+        minutes = `0${minutes}`;
+    }
+    return `${day} ${hours}:${minutes}`;
+}
+
 function displayCurrentConditions(response) {
     let temperatureCelsiusElement = document.querySelector("#celsius-temperature");
     let humidityElement = document.querySelector("#humidity");
     let windElement = document.querySelector("#wind-speed");
     let descriptionElement = document.querySelector("#description");
+    let dateElement = document.querySelector("#date");
     let iconElement = document.querySelector("#icon");
 
     celsiusTemperature = response.data.main.temp;
@@ -11,6 +27,7 @@ function displayCurrentConditions(response) {
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     windElement.innerHTML = Math.round(response.data.wind.speed);
     descriptionElement.innerHTML = response.data.weather[0].description;
+    dateElement.innerHTML = formatDate(response.data.dt * 1000);
     iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     iconElement.setAttribute("alt", `response.data.weather[0].description`);
 }
@@ -47,20 +64,6 @@ function displayCelsiusTemperature(event) {
 }
 
 let celsiusTemperature = "null";
-
-let now = new Date();
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let day = days[now.getDay()];
-let hours = now.getHours();
-    if (hours < 10) {
-        hours = `0${hours}`;
-    }
-let minutes = now.getMinutes();
-    if (minutes < 10) {
-        minutes = `0${minutes}`;
-    }
-let currentDate = document.querySelector("#date");
-currentDate.innerHTML = `${day} ${hours}:${minutes}`;
 
 let form = document.querySelector("form");
 form.addEventListener("click", handleSubmit);
