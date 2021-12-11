@@ -11,6 +11,7 @@
 <body>
   <div class="container">
     <div class="weather-app">
+      <div class="weather-app-wrapper">
       <form id="search-form" class="mb-3">
         <div class="row">
           <div class="col-9" autofocus>
@@ -24,25 +25,30 @@
         </div>
       </form>
 
-      <h1 id="city">London</h1>
-      <h2>
-        <ul>
+      <h1 id="city"></h1>
+        <ul class="today-info">
           <li>
-            Last updated: <span id="current time"></span>Monday, 09:15
+            Last updated: <span id="date"></span>
           </li>
           <li id="descripton">
             cloudy
           </li>
         </ul>
+      
 
         <div class="row">
           <div class="col-ms-6">
-            <div class="d-flex">
+            <div class="d-flex weather-temperature">
               <img src="http://openweathermap.org/img/wn/04d@2x.png" alt="cloudy" class="float-left" id="icon">
               <div class="float-left">
-               <strong id="current-temperature">8°C</strong>
+               <strong id="current-temperature">
+                 8
+                </strong>
+               <span class="units">
+                 °C | °F
+                </span>
               </div>
-              <div class="col-ms-6">
+              <div class="col-ms-6 today-weather-info">
                 <ul>
                   <li>
                     Humidity: <span id="humidity"> 50%</span>
@@ -55,9 +61,11 @@
             </div>
           </div>
         </div>
-      
-    </div>
-    <p>open source code by Cornelia Schlesinger</p>
+       </div>
+      </div>
+   <p><a href="https://github.com/ConnyOConnor/my-weather-app" target="_blank" class="open-source-link">open source code</a>
+     by Cornelia Schlesinger
+    </p>
   </div>
     <script src="src/app.js"></script>
 </body>
