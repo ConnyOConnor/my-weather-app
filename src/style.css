@@ -73,4 +73,25 @@ a {
     text-decoration: none;
 }
 
+.card {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.forecast-icon {
+    display: block;
+    margin: 15px auto;
+}
+
+.weather-forecast-temperatures {
+    font-size: 13px;
+}
+
+.weather-forecast-temperature-min {
+    opacity: 0.5;
+}
+
+p {
+    margin-top: -20px;
+}
 

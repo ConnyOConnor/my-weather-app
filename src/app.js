@@ -10,7 +10,51 @@ function formatDate(response) {
         if (minutes < 10) {
         minutes = `0${minutes}`;
     }
-    return `${day} ${hours}:${minutes}`;
+    return `Last updated: ${day} ${hours}:${minutes}`;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = date.getDay();
+  return days[day];
+} 
+
+function displayForecast(response) {
+    let forecast = response.data.daily;
+    let forecastElement = document.querySelector("#forecast");
+
+    let forecastHTML = `<div class="row">`;
+    forecast.forEach(function (forecastDay, index) {
+        if (index > 0 && index < 7) {
+            forecastHTML = forecastHTML + 
+            `
+            <div class="col-2">
+             <div class="card border-dark mb-2" style="max-width: 18rem">
+              <div class="card-header weather-forecast-day">
+                ${formatDay(forecastDay.dt)}
+              </div>
+              <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="36" class="forecast-icon"/>
+                <div class="weather-forecast-temperatures">
+                 <span class="weather-forecast-temperature-max"> ${Math.round(forecastDay.temp.max)}°C </span>
+                 <span class="weather-forecast-temperature-min>${Math.round(forecastDay.temp.min)}°C</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            `;
+        }
+    })
+
+    forecastHTML = forecastHTML + `</div>`;
+    forecastElement.innerHTML = forecastHTML
+  }
+
+function getForecast(coordinates) {
+    let apiKey = "b0c8bbe6abc74ddc23b034afa70b96c3";
+    let units = "metric";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=${units}`;
+    axios.get(apiUrl).then(displayForecast);
 }
 
 function displayCurrentConditions(response) {
@@ -30,6 +74,8 @@ function displayCurrentConditions(response) {
     dateElement.innerHTML = formatDate(response.data.dt * 1000);
     iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     iconElement.setAttribute("alt", `response.data.weather[0].description`);
+
+    getForecast(response.data.coord);
 }
 
 function handleSubmit(event) {
