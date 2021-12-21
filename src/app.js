@@ -41,10 +41,10 @@ function displayForecast(response) {
                 <div class="weather-forecast-temperatures">
                  <span class="weather-forecast-temperature-max"> ${Math.round(
                    forecastDay.temp.max
-                 )}°C</span>
-                 <span class="weather-forecast-temperature-min"> ${Math.round(
+                 )}°</span>
+                 <span class="weather-forecast-temperature-min">  ${Math.round(
                    forecastDay.temp.min
-                 )}°C</span>
+                 )}°</span>
                 </div>
               </div>
             </div>
@@ -96,16 +96,6 @@ function handleSubmit(event) {
     axios.get(apiUrl).then(displayCurrentConditions);
 }
 
-function displayFahrenheitTemperature(event) {
-    event.preventDefault();
-    let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-    let temperatureElement = document.querySelector("#celsius-temperature");
-    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-    
-    celsiusLink.classList.remove("active");
-    fahrenheitLink.classList.add("active");
-}
-
 function displayCelsiusTemperature(event) {
     event.preventDefault();
     let temperatureElement = document.querySelector("#celsius-temperature");
@@ -119,9 +109,3 @@ let celsiusTemperature = "null";
 
 let form = document.querySelector("form");
 form.addEventListener("submit", handleSubmit);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
