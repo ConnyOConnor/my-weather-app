@@ -51,11 +51,6 @@ li:first-letter {
     margin-left: 15px;
 }
 
-.weather-temperature .active {
-    color: black;
-    cursor: default;
-}
-
 .units {
     font-size: 16px;
     position: relative;

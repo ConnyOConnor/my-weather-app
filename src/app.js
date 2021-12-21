@@ -64,6 +64,7 @@ function getForecast(coordinates) {
 }
 
 function displayCurrentConditions(response) {
+    let cityElement = document.querySelector("#city");
     let temperatureCelsiusElement = document.querySelector("#celsius-temperature");
     let humidityElement = document.querySelector("#humidity");
     let windElement = document.querySelector("#wind-speed");
@@ -73,6 +74,7 @@ function displayCurrentConditions(response) {
 
     celsiusTemperature = response.data.main.temp;
 
+    cityElement.innerHTML = response.data.name;
     temperatureCelsiusElement.innerHTML = Math.round(response.data.main.temp);
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     windElement.innerHTML = Math.round(response.data.wind.speed);
@@ -84,28 +86,19 @@ function displayCurrentConditions(response) {
     getForecast(response.data.coord);
 }
 
+function search(city){
+  let apiKey = "b0c8bbe6abc74ddc23b034afa70b96c3";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayCurrentConditions);
+} 
+
 function handleSubmit(event) {
-    event.preventDefault();
-    let cityInput = document.querySelector("#city-input");
-    let currentCity = document.querySelector("#city");
-    currentCity.innerHTML = `${cityInput.value}`;
-
-    let apiKey = "b0c8bbe6abc74ddc23b034afa70b96c3";
-    let units = "metric";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=${units}`;
-    axios.get(apiUrl).then(displayCurrentConditions);
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  search(cityInput.value);
 }
-
-function displayCelsiusTemperature(event) {
-    event.preventDefault();
-    let temperatureElement = document.querySelector("#celsius-temperature");
-    temperatureElement.innerHTML = Math.round(celsiusTemperature);
-
-    celsiusLink.classList.add("active");
-    fahrenheitLink.classList.remove("active");
-}
-
-let celsiusTemperature = "null";
 
 let form = document.querySelector("form");
 form.addEventListener("submit", handleSubmit);
+search("London");
