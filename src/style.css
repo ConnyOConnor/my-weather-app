@@ -81,10 +81,12 @@ a {
 .forecast-icon {
     display: block;
     margin: 15px auto;
+    height: 50px;
+    width: 50px;
 }
 
 .weather-forecast-temperatures {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .weather-forecast-temperature-min {
@@ -93,5 +95,6 @@ a {
 
 p {
     margin-top: -20px;
+    font-size: 12px;
 }
 
